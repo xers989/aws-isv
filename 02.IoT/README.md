@@ -42,36 +42,42 @@ Function name 은 IoTFunc 하고 IoTfunc.js 의 내용을 복사하여 주고 �
 
 <img src="/images/02/images07.png" width="70%" height="70%">
 
-#### Local Node test 
+변경 내용을 보여주며 화면 하단에 Deploy 버튼을 클릭하여 완료 하여 줍니다.
+<img src="/images/02/images08.png" width="70%" height="70%">
+
+생성한 Function 의 인증을 변경 하기 위해 Functions 에서 생성된 IoTfunc에서 Actions을 클릭 (Edit Function)합니다.
+<img src="/images/02/images09.png" width="70%" height="70%">
+
+Settings를 선택 하고 Authentication 을 System 으로 선택 합니다. 저장 하고 배포를 진행 하여야 합니다.
+<img src="/images/02/images10.png" width="70%" height="70%">
+
+
+#### AWS Setting
+AWS 에 로그인 후 Kinesis Data Firehose를 생성 합니다.
+Source 는 Direct PUT 을 선택 하고 Destination 을 MongoDB Cloud 로 선택 합니다.
+<img src="/images/02/images11.png" width="70%" height="70%">
+
+API Key 는 다음 값을 입력 하여 줍니다ㅣ.
+Aol7jmcDjYxLoruWMZprJHQPxHdCx7kvxLn5yvtOR3gdErza0fevfZWwLJygpu3H
+
+
+MongoDB Realm webhook URL 은 Realm application 에서 Https Endpoints 에 생성한 서비스를 클릭 하여 Operation Type 에서 얻을 수 있습니다.
+<img src="/images/02/images12.png" width="70%" height="70%">
+
+백업 설정으로 실패한 데이터를 버킷으로 전송 하는 설정을 하여 준수 생성 하여 줍니다.
+
+#### Firehose 수행
+Firehose 를 실행하여 데이터 생성을 확인 합니다.
 
 `````
-$ npm install
-$ npm install -D nodemon
-$ npm start
+aws-isv % % aws firehose put-record --delivery-stream-name PUT-MNG-ZBQH1 --record '{ "Data":"eyJvd25lciI6ICJhd3MtaW90In0="}'
+{
+    "RecordId": "4UhgZcPAvkZjBBOjAp+l3s8XCArwpNIBIyXmGzf5RwTPKVcC5JNThmGPq+AGHU9SiA63pEV8GJPBrXPZ1v1IhlWLhDvWW8w0KfofnIMY6QP/0z8/jsWjfGKKTRsSEnumTeCNeCv9J1X+Dg6WmXhZ0LHvS0bI+WNVlPalOGM1KLfmKhGdceuxMICU/JsG+j98LzM85Hd1hbK1pQN9xm6DtRyOy0hxk3TG",
+    "Encrypted": false
+}
 `````
+<img src="/images/02/images13.png" width="70%" height="70%">
 
-#### POST
-aws-altas 데이터 베이스에 handson 이라는 컬렉션(테이블)을 생성하고 데이터 (Json document)를 입력 합니다.  
-
-Node를 시작하고 Postman 혹은 Curl을 이용하여 POST로 데이터를 생성 합니다. SSN을 포함하는 고객 정보를 생성합니다.
-
-`````
-curl --location --request POST 'http://localhost:3000/handson' \
---header 'Content-Type: application/json' \
---data-raw '{
-        "ssn": "123-001-0000",
-        "address": {
-            "street": "Seoul Jongro-gu, Sejon-ru ",
-            "city": "Seoul",
-            "zip": 123142
-        },
-        "name": {
-            "firstName":"Jon",
-            "lastName" : "Doe"
-        },
-        "phone": "010-2345-9999"
-    }'
-`````
 
 #### GET
 생성한 데이터를 확인 합니다. GET으로 호출 하면 handson 컬렉션에 모든 데이터를 반환 합니다.  

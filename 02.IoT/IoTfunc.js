@@ -10,7 +10,6 @@ exports = function(payload, response) {
         }
         return r
     }
-     console.log('Step1');
     const collection = context.services
     .get("mongodb-atlas")
     .db("aws")
@@ -20,16 +19,23 @@ exports = function(payload, response) {
     
     const firehoseAccessKey = payload.headers["X-Amz-Firehose-Access-Key"];
     const KDFH_SECRET_KEY = "Aol7jmcDjYxLoruWMZprJHQPxHdCx7kvxLn5yvtOR3gdErza0fevfZWwLJygpu3H";
+    console.log('should be: ' + context.values.get("KDFH_SECRET_KEY"));
  
    // Check shared secret is the same to validate Request source
    if (firehoseAccessKey == KDFH_SECRET_KEY) {
       
-       fullDocument.records.forEach((record) => {
-       const document = JSON.parse(decodeBase64(record.data))
-    
-       const status = collection.insertOne(document);
+      fullDocument.records.forEach((record) => {
+        
+            const document = JSON.parse(decodeBase64(record.data))
+            
+ //console.log('Step2'+Buffer.from(record.data, "base64").toString('utf8'));
+            //const document = JSON.parse(Buffer.from(record.data, "base64").toString('utf8'));
+            const status = collection.insertOne(document);
+            console.log("got status: "+ status)
       })
-       
+      
+
+
       response.setStatusCode(200)
             const s = JSON.stringify({
                 requestId: payload.headers['X-Amz-Firehose-Request-Id'][0],
