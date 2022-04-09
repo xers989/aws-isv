@@ -79,19 +79,27 @@ aws-isv % % aws firehose put-record --delivery-stream-name PUT-MNG-ZBQH1 --recor
 <img src="/images/02/images13.png" width="70%" height="70%">
 
 
-#### GET
-생성한 데이터를 확인 합니다. GET으로 호출 하면 handson 컬렉션에 모든 데이터를 반환 합니다.  
-
-````
-curl --location --request GET 'http://localhost:3000/handson' \
---header 'Content-Type: application/json'
-````
+#### Chart 생성하기
+생성된 데이터로 부터 챠트를 생성 합니다. Atlas Console 로그인 후 Charts 를 클릭합니다
+Charts 를 클릭 하고 Data Sources 메뉴를 선택 합니다. Add Data Source 버튼을 클릭 한 후 사용 중인 클러스터와 연결 합니다. Chart와 연결할 데이터 소스로 IoT를 선택 합니다.    
+<img src="/images/02/images15.png" width="70%" height="70%">
 
 
-#### POST - Like 검색 만들기
-router.route('/like').post(async (req, res, next) 를 추가 합니다. Query 파라키터로 ssn을 받아 데이터를 검색하도록 합니다.    
-where ssn like '%XX%' 와 동일 한 검색을 하도록 합니다.    
-내부 코드는 일반 검색 하는 코드를 복사하고 Query 부분을 regex 를 이용하여 검색 하도록 조정 하여 줍니다.
+이후 Add Dashboard를 합니다.
+<img src="/images/02/images14.png" width="70%" height="70%">
+
+Add Chart 를 클릭 하고 Datasource aws.IoT 를 선택 합니다. 
+
+<img src="/images/02/images16.png" width="70%" height="70%">
+
+챠트 종류를 Circular 를 선택 하고 City 를 Label 항목으로 reg_num 을 Arc 항목으로 Drag & Drop 하여 줍니다.
+<img src="/images/02/images17.png" width="70%" height="70%">
+
+챠트를 저장 합니다.
+
+
+#### Online Archiving (Option)
+Online Archiving 은 시간을 조건으로 하여 데이터를 Object Storage 공간으로 이동 시키는 것으로 Freetier 에서는 제한된 기능으로 테스트를 위해서는 M10으로 upgrade 한 후 테스트 하여야 합니다.   
 
 ````
 let query = "";
