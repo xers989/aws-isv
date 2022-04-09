@@ -116,3 +116,25 @@ Timestamp 항목에서 현재일 기준 60일 이전의 데이터를 선택 하�
 <img src="/images/02/images19.png" width="60%" height="60%">
 
 기본 항목으로 진행 하여 설정을 완료 하면 Archive 서비스가 시작 됩니다.
+
+Archive는 백그라운드 배치 프로세스로 수행 결과는 다음과 같이 확인 할 수 있습니다.  
+또한 IoT 컬렉션에는 데이터가 모두 Archive되어 없는 것을 확인 할 수 있습니다.
+<img src="/images/02/images20.png" width="60%" height="60%">     
+
+
+#### Data Lake Query (Option)
+Arhive 된 데이터를 확인 하고 Query를 수행 합니다.  
+Data Lake 메뉴를 클릭 하면 Online Archive Data Lakes 항목에서 Arhive된 내역을 볼 수 있습니다.    
+
+
+<img src="/images/02/images21.png" width="70%" height="70%">
+
+Archive는 백그라운드 배치 프로세스로 수행 결과는 다음과 같이 확인 할 수 있습니다.  
+또한 IoT 컬렉션에는 데이터가 모두 Archive되어 없는 것을 확인 할 수 있습니다.   
+
+Connect 버튼을 클릭 하면 Datalake 에 접속 하기 위한 주소를 얻을 수 있습니다.
+<img src="/images/02/images23.png" width="60%" height="60%">    
+
+Compass 에서 해당 주소를 이용하여 접속하면 데이터가 존재 하는 것을 확인 할 수 있습니다.
+
+<img src="/images/02/images24.png" width="60%" height="60%">    
