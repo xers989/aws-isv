@@ -27,57 +27,32 @@ DATABASE=aws-atlas
 
 데이터베이스로 aws를 생성 하고 IoT 컬렉션을 생성합니다.
 
-
-
 <img src="/images/02/images02.png" width="70%" height="70%">    
 
-#### Connection Code
+데이터를 파일을 다운로드 하고 업로드 합니다. 
+데이터 파일 :
+https://github.com/xers989/aws-isv/raw/main/02.IoT/tracking-historic-final.json
 
-다음 코드는 GET 을 이용하여 데이터를 조회하는 코드 입니다.
+파일 선택 후 JSON을 선택 하여 Import 진행 합니다.    
+<img src="/images/02/images03.png" width="70%" height="70%">
 
-`````
+#### Realm Application 생성
+Atlas의 Data Platform 서비스로 Serverless 형태의 서비스를 제공 합니다. IoT컬렉션에 데이터 생성을 위한 서비스를 제공 합니다. Atlas Console 에서 Realm 메뉴에서 Realm Application 을 추가 하여 줍니다.     
+연결된 데이터 소스를 사용 하고 있는 데이터베이스 클러스터를 선택 하고 배포 모델을 Local 로 한 후 Oregon 으로 선택 하여 줍니다.
 
-const client = new MongoClient(connectionString);
-const database = client.db(databasename);
-const handson = database.collection("handson");
+<img src="/images/02/images04.png" width="70%" height="70%">
 
-router.route('/').get( async(req, res, next) => {
-    try{
-        await client.connect();
-        
-        let query = {};
+서비스 엔드포인트 생성을 위해 Https Endpoints 메뉴를 선택 하고 Add an endpoint 를 클릭 합니다.
 
-        const cursor = await handson.find(query);
-        
-        const results = await cursor.toArray();
-        let outcomes = '';
-        if (results.length > 0) {
-            results.forEach((result, i) => {
-                outcomes += JSON.stringify(result);
-                console.log(result);
-            });
-        } else {
-            console.log('No Data');
-        }
+<img src="/images/02/images05.png" width="70%" height="70%">
 
-        console.log("Outcomes : "+outcomes);
-        res.status(200).json(results);
+Route 주소를 /myservice 로 입력 하고 Method 를 Post 를 선택 합니다. 
+Function 항목에서 Select a function 을 클릭 하고 New Function 을 선택 한 후 작성된 Script 를 입력 하여 줍니다.
+Function name 은 IoTFunc 하고 IoTfunc.js 의 내용을 복사하여 주고 저장 합니다.
 
-    } catch(e)
-    {
-        console.log("Error");
-        console.error(e);
-        res.status(404).json({});
+저장 후에 실제 배포는 된 상태가 아니기 때문에 위쪽에 나오는 버튼 REVIEW DRAFT & DEPLOY 를 클릭하여 줍니다.
 
-    }
-    finally{
-        await client.close();
-    }    
-})
-`````
-MongoDB Atlas 연결을 위한 client가 선언 되어 handson 이라는 컬렉션을 사용 하도록 되어 있습니다.   
-query = {} 으로 조회 조건 (조건없는 검색)를 검색조건으로 하여 find 를 Query를 수행 합니다.
-
+<img src="/images/02/images06.png" width="70%" height="70%">
 
 #### Local Node test 
 
