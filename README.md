@@ -37,14 +37,16 @@ Hands-on에서는 Id/password를 이용하는 방식의 데이터베이스 계�
 #### Network Access 생성
 데이터 베이스 접근 테스트를 위해서 접근 하려는 컴퓨터의 IP 주소를 방화벽에 허용 해 주어야 합니다.    
 Security의 Network Access메뉴를 선택 합니다.
-<img src="/images/images05.png" width="90%" height="90%">  
+<img src="/images/images05.png" width="80%" height="80%">  
 Add IP Address를 클릭하고 Add IP Access List Entry 에서 Add current IP Address를 클릭하하고 Confirm을 선택 합니다.   
 방화벽 설정은 1분 가량의 시간이 소요 됩니다.
 
 
 #### 초기 데이터 로드
 생성된 데이터 베이스 클러스터에 초기 샘플 데이터를 적재하여 Hands on을 진행 합니다.   
-<img src="/images/images06.png" width="90%" height="90%">  
+<img src="/images/images06.png" width="90%" height="90%">     
+
+
 Database 메뉴를 클릭 하면 생성된 데이터 베이스 클러스터를 볼 수 있습니다. 최초에는 데이터가 없음으로 클러스터 메뉴 버튼을 "..."을 클릭 하면 추가 메뉴 중 Load Sample Dataset 을 선택 합니다.   
 생성이 완료된 후 Browse Collections를 클릭하먄 데이터를 볼 수 있습니다.
 생성된 데이터 베이스는 sample_airbnb외 8개의 데이터베이스가 생성 되고 최소 1개 이상의 컬렉션(테이블)이 생성되게 됩니다.
