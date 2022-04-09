@@ -9,7 +9,7 @@ Nodejs로 Atlas 에 접속 하고 MongoDB Query 를 이용하여 데이터를 �
 MongoDB Atlas의 Deployment의 Database 메뉴를 클릭하여 생성한 데이터 베이스 클러스터를 조회 합니다.   
 Connect 버튼을 클릭 하면 접근을 하기 위한 클러스터 정보를 얻을 수 있습니다. Nodejs 애플리케이션에서 접근을 할 것임으로 Connect your application 을 선택 합니다.    
 
-<img src="/images/01/images01.png" width="90%" height="90%">    
+<img src="/images/01/images01.png" width="70%" height="70%">    
 
 접근 하기 위한 Code를 복사 합니다.   
 
