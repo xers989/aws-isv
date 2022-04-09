@@ -1,13 +1,15 @@
 # APAC 2022 ISV Tech Summit - MongoDB
 
-### 01. Nodejs 를 이용한 MongoDB CRUD
-Nodejs로 Atlas 에 접속 하고 MongoDB Query 를 이용하여 데이터를 생성, 조회, 삭제를 테스트 합니다. like 검색을 하는 API를 생성하고 테스트 합니다.
+### 02. IoT Use Case with MongoDB Atlas, Kinesis Data firehose, MongoDB Charts and Atlas Datalake
+Kinesis Data firehorse 로 IoT 데이터를 수집하여 Atlas 로 전달 하는 Pipeline을 구성하고 저장된 데이터를 활용 합니다.
 
 
-#### Env File 설정
+#### Setup
+다운로드 설치한 Compass 를 실행 합니다. 접속 하기 위한 Connection은 다음과 같습니다.
+````
+mongodb+srv://aws-isv-atlas:<password>@cluster0.6nfk2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+````
 
-MongoDB Atlas의 Deployment의 Database 메뉴를 클릭하여 생성한 데이터 베이스 클러스터를 조회 합니다.   
-Connect 버튼을 클릭 하면 접근을 하기 위한 클러스터 정보를 얻을 수 있습니다. Nodejs 애플리케이션에서 접근을 할 것임으로 Connect your application 을 선택 합니다.    
 
 <img src="/images/01/images01.png" width="70%" height="70%">    
 
@@ -18,8 +20,16 @@ Password는 생성한 Password를 입력 하여 주고 특수 문자가 포함�
 MongoDB 접근 정보 및 사용할 Database 지정    
 ````
 MONGODB=mongodb+srv://aws-isv-atlas:<password>@cluster0.6nfk2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-DATABASE=aws
+DATABASE=aws-atlas
 ````
+
+<img src="/images/02/images01.png" width="70%" height="70%">    
+
+데이터베이스로 aws를 생성 하고 IoT 컬렉션을 생성합니다.
+
+
+
+<img src="/images/02/images02.png" width="70%" height="70%">    
 
 #### Connection Code
 

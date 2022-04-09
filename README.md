@@ -55,8 +55,13 @@ Database 메뉴를 클릭 하면 생성된 데이터 베이스 클러스터를 �
 
 #### 기타 필요한 소프트웨어
 클라이언트 애플리케이션 테스트를 위한 Nodejs 및 REST API 테스트를 위한 curl 혹은 Postman이 필요 합니다.
+MongoDB에 접속하고 데이터를 조회 하는 GUI Tool (Compass)를 다운로드 합니다.
+
 Nodejs : 
 https://nodejs.org/en/download/
 
 Postman :
 https://www.postman.com/downloads/
+
+Compass :
+https://www.mongodb.com/products/compass
