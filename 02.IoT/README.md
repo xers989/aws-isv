@@ -113,6 +113,6 @@ Namespace 에 aws.IoT를 입력 하고 Date Field 에 TimeStamp를 입력하고 
 Timestamp 항목에서 현재일 기준 60일 이전의 데이터를 선택 하여 Arhive 하는 것입니다.
 
 
-<img src="/images/02/images19.png" width="70%" height="70%">
+<img src="/images/02/images19.png" width="60%" height="60%">
 
 기본 항목으로 진행 하여 설정을 완료 하면 Archive 서비스가 시작 됩니다.
