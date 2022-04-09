@@ -10,15 +10,136 @@ const connectionString = mongodb;
       
 
 const client = new MongoClient(connectionString);
+const database = client.db(databasename);
+const handson = database.collection("handson");
 
+router.route('/like').post(async (req, res, next) => {
+    try{
+        await client.connect();
+       
+        let query = "";
+        if (req.query.ssn != null) {
+            let _ssn = req.query.ssn;
+            query = {ssn: {$regex: "/*"+_ssn+"/*"}};
+        }
+        else
+        {
+            query = {};
+        }
 
+        console.log('query:'+JSON.stringify(query));
+
+        const cursor = await handson.find(query);
+        const results = await cursor.toArray();
+
+        let outcomes = '';
+        if (results.length > 0) {
+            results.forEach((result, i) => {
+                outcomes += JSON.stringify(result);
+                console.log(result);
+            });
+        } else {
+            console.log('No Data');
+        }
+
+        console.log("Outcomes : "+outcomes);
+        res.status(200).json(results);
+    }catch (err)
+    {
+        console.error(err);
+        next(err);
+    } 
+});
+
+router.route('/:ssn').get( async(req, res, next) => {
+    try{
+        await client.connect();
+        
+        let _ssn = req.params.ssn;
+
+        let query = {};
+        if (_ssn != null)
+            query = {ssn: _ssn} 
+        const cursor = await handson.find(query);
+        const results = await cursor.toArray();
+
+        let outcomes = '';
+        if (results.length > 0) {
+            results.forEach((result, i) => {
+                outcomes += JSON.stringify(result);
+                console.log(result);
+            });
+        } else {
+            console.log('No Data');
+        }
+
+        console.log("Outcomes : "+outcomes);
+        res.status(200).json(results);
+
+    } catch(e)
+    {
+        console.log("Error");
+        console.error(e);
+        res.status(404).json({});
+
+    }
+    finally{
+        await client.close();
+    }    
+}).delete(async (req, res, next) => {
+    try{
+        await client.connect();
+        
+        let _ssn = req.params.ssn;
+        
+        let query = {};
+        if (_ssn != null)
+            query = {ssn: _ssn} 
+            
+        const result = await handson.deleteOne(
+            query
+          );
+
+        console.log("Delete log"+_ssn);
+        res.status(201).json(result);
+    }catch (err)
+    {
+        console.error(err);
+        next(err);
+    } 
+}).patch(async (req, res, next) => {
+    try{
+        await client.connect();
+        
+        let _ssn = req.params.ssn;
+        
+        const exampleDocument = req.body;
+        let query = {};
+        if (_ssn != null)
+            query = {ssn: _ssn} 
+            
+        await handson.updateOne(
+            query,
+            { $set: exampleDocument }
+            );
+
+        console.log("Update log"+_ssn);
+        res.status(201).json(exampleDocument);
+    }catch (err)
+    {
+        console.error(err);
+        next(err);
+    } 
+});
 
 router.route('/').get( async(req, res, next) => {
     try{
         await client.connect();
-        const database = client.db(databasename);
-        const handson = database.collection("handson");
-        const query = {};
+        
+        let query = {};
+
+        console.log(query)
+
         const cursor = await handson.find(query);
         
         const results = await cursor.toArray();
@@ -51,37 +172,11 @@ router.route('/').get( async(req, res, next) => {
     try{
         await client.connect();
         const exampleDocument = req.body;
-        const database = client.db(databasename);
-        const handson = database.collection("handson");
         
-        await handson.updateOne(
-            { ssn: exampleDocument["ssn"] },
-            { $set: exampleDocument },
-            { upsert: true }
+        await handson.insertOne(exampleDocument
           );
 
-        console.log("POST log");
         res.status(201).json(exampleDocument);
-    }catch (err)
-    {
-        console.error(err);
-        next(err);
-    } 
-}).delete(async (req, res, next) => {
-    try{
-        await client.connect();
-        
-        const deleteSSN = req.query.ssn;
-
-        const database = client.db(databasename);
-        const handson = database.collection("handson");
-        
-        const result = await handson.deleteOne(
-            { ssn: deleteSSN }
-          );
-
-        console.log("Delete log"+deleteSSN);
-        res.status(201).json(result);
     }catch (err)
     {
         console.error(err);
