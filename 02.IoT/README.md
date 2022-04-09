@@ -10,19 +10,6 @@ Kinesis Data firehorse 로 IoT 데이터를 수집하여 Atlas 로 전달 하는
 mongodb+srv://aws-isv-atlas:<password>@cluster0.6nfk2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 ````
 
-
-<img src="/images/01/images01.png" width="70%" height="70%">    
-
-접근 하기 위한 Code를 복사 합니다.   
-
-..env 파일을 생성 하고 복사한 Code를 다음과 같이 생성 하여 줍니다.  
-Password는 생성한 Password를 입력 하여 주고 특수 문자가 포함된경우 URLCode로 인코딩하여 줍니다.    
-MongoDB 접근 정보 및 사용할 Database 지정    
-````
-MONGODB=mongodb+srv://aws-isv-atlas:<password>@cluster0.6nfk2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-DATABASE=aws-atlas
-````
-
 <img src="/images/02/images01.png" width="70%" height="70%">    
 
 데이터베이스로 aws를 생성 하고 IoT 컬렉션을 생성합니다.
