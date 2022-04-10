@@ -75,73 +75,81 @@ $ pip3 install flask
 
 `````
 
-애플리케이션에 접속 합니다.
-<img src="/images/03/images08.png" width="70%" height="70%">  
+애플리케이션에 접속 합니다.    
+<img src="/images/03/images08.png" width="70%" height="70%">    
 
 
-#### Firehose 수행
-Firehose 를 실행하여 데이터 생성을 확인 합니다.   
-Data 는 다음 Json 메시지를 Base64로 encoding 하여 줍니다.    
+#### 일반 텍스트 검색
+Server.py 의 20 라인에 다음을 확인 합니다. 
 `````
-{"owner": "aws-iot"}
+    with open("queries/query01.json", "r", encoding = 'utf-8') as query_file:
 `````
 
+queries 폴더에 query01.json을 이용한 텍스트 검색으로 movies 컬렉션에 title 컬럼에서 갬색을 진행 합니다. 결과는 3개 항목 만을 기준으로 하며 검색 Score를 함께 보여 줍니다.    
 
-<img src="/images/02/images13.png" width="70%" height="70%">    
+다음은 crime으로 검색한 결과 입니다.     
+<img src="/images/03/images09.png" width="70%" height="70%">    
 
+두개 이상의 단어를 입력하여 검색을 하기 위해 Server.py 의 20 라인을 다음과 같이 변경합니다.
+`````
+    with open("queries/query02.json", "r", encoding = 'utf-8') as query_file:
+`````
 
-#### Chart 생성하기
-생성된 데이터로 부터 챠트를 생성 합니다. Atlas Console 로그인 후 Charts 를 클릭합니다
-Charts 를 클릭 하고 Data Sources 메뉴를 선택 합니다. Add Data Source 버튼을 클릭 한 후 사용 중인 클러스터와 연결 합니다. Chart와 연결할 데이터 소스로 IoT를 선택 합니다.    
-<img src="/images/02/images15.png" width="50%" height="50%">    
-
-
-이후 Add Dashboard를 합니다.     
-<img src="/images/02/images14.png" width="40%" height="40%">    
-
-Add Chart 를 클릭 하고 Datasource aws.IoT 를 선택 합니다.     
-
-<img src="/images/02/images16.png" width="70%" height="70%">
-
-챠트 종류를 Circular 를 선택 하고 City 를 Label 항목으로 reg_num 을 Arc 항목으로 Drag & Drop 하여 줍니다.
-<img src="/images/02/images17.png" width="70%" height="70%">
-
-챠트를 저장 합니다.
+fullplot 항목에서 입력한 키워드로 검색한 합니다. (total recall 로 검색한 결과) 결과는 전체 검색 결괄르 리턴 합니다.     
+<img src="/images/03/images10.png" width="70%" height="70%">    
 
 
-#### Online Archiving (Option)
-Online Archiving 은 시간을 조건으로 하여 데이터를 Object Storage 공간으로 이동 시키는 것으로 Freetier 에서는 제한된 기능으로 테스트를 위해서는 M10으로 upgrade 한 후 테스트 하여야 합니다.   
-Atlas Console 에서 데이터 베이스 클러스터를 선택 한 후 Online Archive 를 선택 합니다.
+#### 문장 검색
+Jimmie Shannon으로 검색을 하면 Jimmie 와 Shannon 으로 검색 한 결과가 보여 지게 됩니다. 이를 한 단어로 하여 검색 합니다.    
+`````
+    with open("queries/query06.json", "r", encoding = 'utf-8') as query_file:
+`````
+<img src="/images/03/images11.png" width="50%" height="50%">    
 
-<img src="/images/02/images18.png" width="70%" height="70%">
-
-Configure Online Archive 를 선택 후 다음을 선택 합니다.
-Namespace 에 aws.IoT를 입력 하고 Date Field 에 TimeStamp를 입력하고 일수를 60으로 입력 합니다.
-Timestamp 항목에서 현재일 기준 60일 이전의 데이터를 선택 하여 Arhive 하는 것입니다.
-
-
-<img src="/images/02/images19.png" width="60%" height="60%">
-
-기본 항목으로 진행 하여 설정을 완료 하면 Archive 서비스가 시작 됩니다.
-
-Archive는 백그라운드 배치 프로세스로 수행 결과는 다음과 같이 확인 할 수 있습니다.  
-또한 IoT 컬렉션에는 데이터가 모두 Archive되어 없는 것을 확인 할 수 있습니다.
-<img src="/images/02/images20.png" width="60%" height="60%">     
+#### Fuzzy 검색
+두개의 단어 new york 을 검색 하는 경우 관련된 영화를 볼 수 있습니다. 사용자가 오타를 입력한 경우 즉 nrw yprk 로 검색을 하면 아무런 결과가 나오지 않습니다. 오타를 인지 하고 처리 해주기 위해 Query 를 변경합니다.    
+   
+`````
+    with open("queries/query09.json", "r", encoding = 'utf-8') as query_file:
+`````
+<img src="/images/03/images12.png" width="50%" height="50%">    
 
 
-#### Data Lake Query (Option)
-Arhive 된 데이터를 확인 하고 Query를 수행 합니다.  
-Data Lake 메뉴를 클릭 하면 Online Archive Data Lakes 항목에서 Arhive된 내역을 볼 수 있습니다.    
+#### 검색어 완성
+영화 제목 검색시 자동으로 관련된 단어를 보여 줍니다. 검색 키 입력된 내용에 따라 자동으로 해당 단어로 시작하는 단어를 보여 주게 됩니다. 이를 위해 인덱스를 변경 해 줍니다.  다음 인덱스를 생성 하여 줍니다. 인덱스 이름은 title_autocomplete 로 하여 줍니다.    
+   
+`````
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "title": [
+        {
+          "type": "autocomplete",
+          "tokenization": "edgeGram",
+          "minGrams": 3,
+          "maxGrams": 7,
+          "foldDiacritics": false
+        }
+      ]
+    }
+  }
+}
+`````
+<img src="/images/03/images13.png" width="50%" height="50%">
 
+index.html 파일에 다음 내용을 수정 하여 줍니다. (212 라인) 기존 function() {} 을 findMovieTitles() 로 변경 합니다.   
 
-<img src="/images/02/images21.png" width="70%" height="70%">
+`````
+$('#custom-search-input .typeahead').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 3
+    },
+    {
+        source: findMovieTitles ()
+    });
+`````
+검색어로 scar 를 입력 하면 scar를 포함한 추천 검색어가 보여 집니다.
 
-Archive는 백그라운드 배치 프로세스로 수행 결과는 다음과 같이 확인 할 수 있습니다.  
-또한 IoT 컬렉션에는 데이터가 모두 Archive되어 없는 것을 확인 할 수 있습니다.   
-
-Connect 버튼을 클릭 하면 Datalake 에 접속 하기 위한 주소를 얻을 수 있습니다.
-<img src="/images/02/images23.png" width="60%" height="60%">    
-
-Compass 에서 해당 주소를 이용하여 접속하면 데이터가 존재 하는 것을 확인 할 수 있습니다.
-
-<img src="/images/02/images24.png" width="60%" height="60%">    
+<img src="/images/03/images14.png" width="50%" height="50%">
