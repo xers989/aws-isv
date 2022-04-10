@@ -60,8 +60,11 @@ MongoDB에 접속하고 데이터를 조회 하는 GUI Tool (Compass)를 다운�
 Nodejs : 
 https://nodejs.org/en/download/
 
-Postman :
+Postman :   
 https://www.postman.com/downloads/
 
-Compass :
+Compass :   
 https://www.mongodb.com/products/compass
+
+Python :   
+https://www.python.org/downloads/
